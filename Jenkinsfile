@@ -16,12 +16,12 @@ pipeline {
 			steps{
 				sh "cd angular-client && npm install"
 				script {
-				dockerImage1 = docker.build registry + ":$BUILD_NUMBER"
+				dockerImage1 = docker.build(registry + ":v1.0", "-f Dockerfile angular-client")
 				}
 				sh "cd .."
 				sh "cd express-server && npm install"
 				script {
-				dockerImage2= docker.build registry + ":$BUILD_NUMBER"
+				dockerImage2= docker.build(registry + ":v1.1", "-f Dockerfile express-server")
 				}
 			}
 		}
