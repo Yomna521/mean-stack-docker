@@ -3,12 +3,13 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                git branch:'master', url: 'https://github.com/Yomna521/mean-stack-docker.git'
+                sh "git clone https://github.com/Yomna521/mean-stack-docker.git'
             }
         }
         stage('Build') {
           steps {
-        	sh "docker-compose up"
+            sh "cd mean-stack-docker"
+        	  sh "docker-compose up"
           }
           } 
          	
