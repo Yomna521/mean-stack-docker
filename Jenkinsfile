@@ -22,16 +22,8 @@ pipeline {
                 sh 'docker run -p 8000:8000 -d ${username}/mean-stack:tagname'
                 }
             }
-           // Send notifications
-        post {
-          success {
-                   slackSend (botUser: true, channel: 'jenkinstest', color: '#66ff66', message: 'pipeline succeeded ', tokenCredentialId: 'slack-token')
-          }
-          failure {
-                  slackSend (botUser: true, channel: 'jenkinstest', color: '#ff3300', message: 'pipeline unsuccessful ', tokenCredentialId: 'slack-token')
-          }
+
         }
             
-        }
     }
 }
