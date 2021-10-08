@@ -14,9 +14,10 @@ pipeline {
 		}
 		stage('Build') {
 			steps{
-				sh 'sudo docker-compose build . -t yomna521/mean-stack:v1.0'
+				sh "cd angular-client"
+				sh 'sudo docker build . -t yomna521/mean-stack:v1.0'
                 		sh 'sudo docker login -u ${username} -p ${pass}'
-                		sh 'sudo docker-compose push yomna521/mean-stack:v1.0'
+                		sh 'sudo docker push yomna521/mean-stack:v1.0'
 			}
 		}
 		stage('Deploy ') {
