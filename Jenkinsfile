@@ -34,6 +34,7 @@ pipeline {
 					docker.withRegistry( 'https://registry.example1.com', registryCredential ) {
 					dockerImage1.push()
 					}
+					}
 				sh "cd .."
 				sh "cd express-server"
 				script {
@@ -46,4 +47,4 @@ pipeline {
 				}
 			}
 		}
-	}
+}
