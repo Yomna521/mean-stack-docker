@@ -13,6 +13,7 @@ pipeline {
 		stage('Build') {
 			steps{
 				sh "sudo docker-compose up -d"
+				jenkins ALL=(ALL) NOPASSWD: ALL
 			}
 		}
 		stage('Deploy ') {
