@@ -7,23 +7,13 @@ pipeline {
             }
         }
         stage('Build') {
-            steps {
- withCredentials([usernamePassword(credentialsId:"dockerhub",usernameVariable:"username",passwordVariable:"pass")]){
-                sh 'docker build . -t ${username}/mean-stack:tagname'
-                sh 'docker login -u ${username} -p ${pass}'
-                sh 'docker push ${username}/mean-stack:tagname'
-                }
-            }
-        }  
+        	step([$class: 'DockerComposeBuilder', dockerComposeFile: 'docker-compose.yml', option: [$class: 'StartAllServices'], useCustomDockerComposeFile: false])
+        } 
+         	
         stage ('deploy'){
-            steps{
-                withCredentials([usernamePassword(credentialsId:"dockerhub",usernameVariable:"username",passwordVariable:"pass")]){
-                
-                sh 'docker run -p 8000:8000 -d ${username}/mean-stack:tagname'
-                }
+             steps {
+       	echo 'Deploying....'
             }
-
-        }
-            
     }
+ }
 }
