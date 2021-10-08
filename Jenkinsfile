@@ -14,15 +14,9 @@ pipeline {
 		}
 		stage('Build') {
 			steps{
-				sh "cd angular-client && npm install"
-				script {
-				dockerImage1 = docker.build(registry + ":v1.0", "-f Dockerfile angular-client")
-				}
-				sh "cd .."
-				sh "cd express-server && npm install"
-				script {
-				dockerImage2= docker.build(registry + ":v1.1", "-f Dockerfile express-server")
-				}
+				sh 'sudo docker-compose build . -t yomna521/mean-stack:v1.0'
+                		sh 'sudo docker login -u ${username} -p ${pass}'
+                		sh 'sudo docker-compose push yomna521/mean-stack:v1.0'
 			}
 		}
 		stage('Deploy ') {
