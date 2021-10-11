@@ -14,10 +14,15 @@ pipeline {
 		}
 		stage('Build') {
 			steps{
-				sh "cd angular-client"
-				sh 'sudo docker build . -t yomna521/mean-stack:v1.0'
-                		sh 'sudo docker login -u ${username} -p ${pass}'
-                		sh 'sudo docker push yomna521/mean-stack:v1.0'
+				sh "cd angular-client && npm install"
+				script {
+				dockerImage1 = docker.build registry + ":v1.0"
+				}
+				sh "cd .."
+				sh "cd express-server && npm install"
+				script {
+				dockerImage2= docker.build registry + ":v1.1"
+				}
 			}
 		}
 		stage('Deploy ') {
